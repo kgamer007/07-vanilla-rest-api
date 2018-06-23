@@ -4,12 +4,13 @@ const url = require('url');
 const queryString = require('querystring');
 
 module.exports = function bodyParser(req) {
+  console.log(req.body)
   return new Promise((resolve, reject) => {
-    console.log(req.url, 'BEFORE PARSINGS');
+    // console.log(req.url, 'BEFORE PARSINGS');
     req.url = url.parse(req.url);
     req.url.query = queryString.parse(req.url.query);
-    console.log(req, 'req');
-    console.log(req.url, 'REQ.URL');
+    // console.log(req, 'req');
+    // console.log(req.url, 'REQ.URL');
 
     if (req.method !== 'POST' && req.method !== 'PUT') {
       return resolve(req);
@@ -25,6 +26,7 @@ module.exports = function bodyParser(req) {
         // this takes the JSON message and turns it into a JS object, and attaches it as the "body" propery on the bigger request object
         // possible errors: passing in ' ', usually resuls in a SyntaxError
         req.body = JSON.parse(message);
+        console.log(req.body)
         return resolve(req);
       } catch (err) {
         return reject(err);

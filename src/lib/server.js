@@ -1,7 +1,7 @@
 'use strict';
 
 const http = require('http');
-const cowsay = require('/cowsay');
+const cowsay = require('cowsay');
 const bodyParser = require('./body-parser.js');
 
 const server = module.exports = {};
@@ -22,7 +22,18 @@ const app = http.createServer((req, res) => {
       // http GET :3000/api/cowsayPage?text=hello
       // You can also do: http GET :3000/api/cowasyPage text==hello
       // OR http :3000/api/cowsayPage text==hello because the request verb defaults to "GET"
-      if (parsedRequest.method === 'GET' && parsedRequest.url.pathname === '/api/cowsayPage') {
+      if (parsedRequest.method === 'GET' && parsedRequest.url.pathname === '/api/cowsay') {
+        /* HINT for lab: because we need a parsedRequest.url.query.text, 
+        how should we handle if a user doesn't put in a "text" value? */
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        const cowsayText = cowsay.say({
+          text: parsedRequest.url.query.text,
+        });
+        res.write(JSON.stringify({'content': cowsayText}));
+        res.end();
+        return undefined;
+      }
+      if (parsedRequest.method === 'GET' && parsedRequest.url.pathname === '/cowsay') {
         /* HINT for lab: because we need a parsedRequest.url.query.text, 
         how should we handle if a user doesn't put in a "text" value? */
         res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -34,13 +45,42 @@ const app = http.createServer((req, res) => {
         return undefined;
       }
 
+      if (parsedRequest.method === 'GET' && parsedRequest.url.pathname === '/cowsay') {
+        /* HINT for lab: because we need a parsedRequest.url.query.text, 
+        how should we handle if a user doesn't put in a "text" value? */
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.write(`<!DOCTYPE html>
+        <html>
+          <head>
+            <title> cowsay </title>
+          </head>
+          <body>
+           <header>
+             <nav>
+               <ul>
+                 <li><a href="/cowsay"></a></li>
+               </ul>
+             </nav>
+           <header>
+           <main>
+             This is a cowsay app
+           </main>
+          </body>
+        </html>`);
+        res.end();
+        return undefined;
+      }
+
       /* this method demos what happens when you make a POST request with 
       arbitrary key/value pair data, i.e.: */
       // http POST :3000/api/echo name=judy hometown=seattle
       // where "name" is the key and "judy" is the value
-      if (parsedRequest.method === 'POST' && parsedRequest.url.pathname === '/api/echo') {
+      if (parsedRequest.method === 'POST' && parsedRequest.url.pathname === '/api/cowsay') {
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify(parsedRequest.body));
+        const cowsayText = cowsay.say({
+          text: parsedRequest.body.text,
+        });
+        res.write(JSON.stringify({'content':cowsayText}));
         res.end();
         return undefined;
       }

@@ -29,7 +29,7 @@ const app = http.createServer((req, res) => {
         const cowsayText = cowsay.say({
           text: parsedRequest.url.query.text,
         });
-        res.write(JSON.stringify({'content': cowsayText}));
+        res.write(JSON.stringify({ 'content': cowsayText })); //eslint-disable-line
         res.end();
         return undefined;
       }
@@ -80,7 +80,7 @@ const app = http.createServer((req, res) => {
         const cowsayText = cowsay.say({
           text: parsedRequest.body.text,
         });
-        res.write(JSON.stringify({'content':cowsayText}));
+        res.write(JSON.stringify({ 'content': cowsayText })); //eslint-disable-line
         res.end();
         return undefined;
       }

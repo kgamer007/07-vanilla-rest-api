@@ -4,7 +4,7 @@ const url = require('url');
 const queryString = require('querystring');
 
 module.exports = function bodyParser(req) {
-  console.log(req.body)
+  console.log(req.body); //eslint-disable-line
   return new Promise((resolve, reject) => {
     // console.log(req.url, 'BEFORE PARSINGS');
     req.url = url.parse(req.url);
@@ -23,10 +23,12 @@ module.exports = function bodyParser(req) {
 
     req.on('end', () => {
       try {
-        // this takes the JSON message and turns it into a JS object, and attaches it as the "body" propery on the bigger request object
+        /* this takes the JSON message and turns it into a JS 
+        object, and attaches it as the "body" propery on the 
+        bigger request object */
         // possible errors: passing in ' ', usually resuls in a SyntaxError
         req.body = JSON.parse(message);
-        console.log(req.body)
+        console.log(req.body); //eslint-disable-line
         return resolve(req);
       } catch (err) {
         return reject(err);

@@ -4,7 +4,7 @@ const url = require('url');
 const queryString = require('querystring');
 
 module.exports = function bodyParser(req) {
-  console.log(req.body); //eslint-disable-line
+  // console.log(req.body); //eslint-disable-line
   return new Promise((resolve, reject) => {
     // console.log(req.url, 'BEFORE PARSINGS');
     req.url = url.parse(req.url);
@@ -28,7 +28,7 @@ module.exports = function bodyParser(req) {
         bigger request object */
         // possible errors: passing in ' ', usually resuls in a SyntaxError
         req.body = JSON.parse(message);
-        console.log(req.body); //eslint-disable-line
+        // console.log(req.body); //eslint-disable-line
         return resolve(req);
       } catch (err) {
         return reject(err);

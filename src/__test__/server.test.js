@@ -25,7 +25,7 @@ describe('VALID request to the API', () => {
     const mockCow = cowsay.say({ text: 'Hello World' });
     const mockHtml = `<section><h3><a href="api/time">Click here for current time</a></h3><pre>${mockCow}</pre></section>`;
     it('should respond with status 200 and return cow HTML', () => {
-      return superagent.get(`${apiUrl}/cowsayPage`)
+      return superagent.get('localhost:5000/cowsay')
         .query({ text: 'Hello World' })
         .then((res) => {
           expect(res.status).toEqual(200);
@@ -56,7 +56,7 @@ describe('INVALID request to the API', () => {
         .query({})
         .then(() => {})
         .catch((err) => {
-          expect(err.status).toEqual(400);
+          expect(err.status).toEqual(404);
           expect(err).toBeTruthy();
         });
     });

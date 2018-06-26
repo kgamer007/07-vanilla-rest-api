@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kgamer007/07-vanilla-rest-api.svg?branch=master)](https://travis-ci.org/kgamer007/07-vanilla-rest-api)
+
 ![cf](https://i.imgur.com/7v5ASc8.png) Lab 07: Vanilla HTTP Server
 ======
 
